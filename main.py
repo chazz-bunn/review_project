@@ -1,6 +1,5 @@
 import mysql.connector
 from pyspark.sql import SparkSession
-import decimal
 import json
 
 #Set up SparkSession and SparkContext
