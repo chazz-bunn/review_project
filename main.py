@@ -8,6 +8,14 @@ sc = spark.sparkContext
 sc.setLogLevel("WARN")
 
 #Login into mysql and sakila database, and setp cursor and connection objects
+'''
+Must have mysqllogininfo.json file with:
+{
+    "user":"user_name",
+    "password":"password",
+    "host":"host address"
+}
+'''
 with open("mysqllogininfo.json") as jsonfile:
         login_dict = json.load(jsonfile)
 
