@@ -27,6 +27,8 @@ cnx = mysql.connector.connect(
 )
 cursor = cnx.cursor()
 
+# The dataframes would fail to create when given set and None datatypes
+# my programs replaces those datatypes using this function
 def change_type(x):
      if isinstance(x, set):
           return str(x)
@@ -34,6 +36,7 @@ def change_type(x):
           return ''
      return x         
 
+# Function for converting a table to a dataframe
 def table_to_df(table_name:str):
     cursor.execute(f"DESCRIBE {table_name};")
     results = cursor.fetchall()
@@ -50,6 +53,7 @@ def main():
     film_category_df = table_to_df("film_category")
     category_df = table_to_df("category")
 
+    ###QUERIES###
     # 1. How many distinct actors last names are there?
     q1_df = actor_df.dropDuplicates(["last_name"]).agg({'last_name': 'count'})
     print("\nHow many distinct actors last names are there?")
@@ -73,8 +77,11 @@ def main():
     print("What is the average running time of films by category?")
     q5_df.show(q5_df.count(), truncate = False)
 
-    cursor.close()
-    cnx.close()
 
 if __name__=='__main__':
     main()
+
+sc.stop()
+spark.stop()
+cursor.close()
+cnx.close()
