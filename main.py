@@ -11,9 +11,9 @@ sc.setLogLevel("WARN")
 '''
 Must have mysqllogininfo.json file with:
 {
-    "user":"user_name",
-    "password":"password",
-    "host":"host address"
+    "user":"[username]",
+    "password":"[password]",
+    "host":"[host address]"
 }
 '''
 with open("mysqllogininfo.json") as jsonfile:
