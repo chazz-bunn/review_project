@@ -54,7 +54,6 @@ def main():
     q1_df = actor_df.dropDuplicates(["last_name"]).agg({'last_name': 'count'})
     print("\nHow many distinct actors last names are there?")
     q1_df.show(truncate = False)
-    #print("Number of unique last names: {}".format(actor_df.dropDuplicates(["last_name"]).count()))
     # 2. Which last names are not repeated?
     q2_df = actor_df.groupBy(["last_name"]).count().filter("count = 1").select(["last_name"])
     print("Which last names are not repeated?")
