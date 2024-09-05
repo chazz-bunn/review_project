@@ -51,18 +51,28 @@ def main():
     category_df = table_to_df("category")
 
     # 1. How many distinct actors last names are there?
-    actor_df.dropDuplicates(["last_name"]).agg({'last_name': 'count'}).show()
+    q1_df = actor_df.dropDuplicates(["last_name"]).agg({'last_name': 'count'})
+    print("\nHow many distinct actors last names are there?")
+    q1_df.show(truncate = False)
     #print("Number of unique last names: {}".format(actor_df.dropDuplicates(["last_name"]).count()))
     # 2. Which last names are not repeated?
-    actor_df.groupBy(["last_name"]).count().filter("count = 1").select(["last_name"]).show()
+    q2_df = actor_df.groupBy(["last_name"]).count().filter("count = 1").select(["last_name"])
+    print("Which last names are not repeated?")
+    q2_df.show(q2_df.count(), truncate = False)
     # 3. Which last names appear more than once?
-    actor_df.groupBy(["last_name"]).count().filter("count > 1").select(["last_name"]).show()
+    q3_df = actor_df.groupBy(["last_name"]).count().filter("count > 1").select(["last_name"])
+    print("Which last names appear more than once?")
+    q3_df.show(q3_df.count(), truncate = False)
     # 4. What is that average running time of all the films in the sakila DB?
-    film_df.agg({'length': 'avg'}).show()
+    q4_df = film_df.agg({'length': 'avg'})
+    print("What is that average running time of all the films in the sakila DB?")
+    q4_df.show(truncate = False)
     # 5. What is the average running time of films by category?
-    film_df.join(film_category_df, film_df.film_id == film_category_df.film_id)\
+    q5_df = film_df.join(film_category_df, film_df.film_id == film_category_df.film_id)\
         .join(category_df, film_category_df.category_id == category_df.category_id)\
-        .select("name", "length").groupBy("name").avg("length").show()
+        .selectExpr("name as category", "length").groupBy("category").avg("length")
+    print("What is the average running time of films by category?")
+    q5_df.show(q5_df.count(), truncate = False)
 
     cursor.close()
     cnx.close()
