@@ -9,7 +9,7 @@ sc.setLogLevel("WARN")
 
 #Login into mysql and sakila database, and setp cursor and connection objects
 '''
-Must have mysqllogininfo.json file with:
+Must have file mysqllogininfo.json file with:
 {
     "user":"[username]",
     "password":"[password]",
