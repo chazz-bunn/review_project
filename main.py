@@ -28,7 +28,7 @@ cnx = mysql.connector.connect(
 cursor = cnx.cursor()
 
 # The dataframes would fail to create when given 'set' or 'None' datatypes
-# this function is used to replace those types
+# this function is used to change those types to acceptable types
 def change_type(x):
      if isinstance(x, set):
           return str(x)
