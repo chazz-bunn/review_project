@@ -27,8 +27,8 @@ cnx = mysql.connector.connect(
 )
 cursor = cnx.cursor()
 
-# The dataframes would fail to create when given set and None datatypes
-# my programs replaces those datatypes using this function
+# The dataframes would fail to create when given 'set' or 'None' datatypes
+# this function is used to replace those types
 def change_type(x):
      if isinstance(x, set):
           return str(x)
@@ -42,8 +42,12 @@ def table_to_df(table_name:str):
     results = cursor.fetchall()
     columns = [r[0] for r in results]
     cursor.execute(f"SELECT * FROM {table_name};")
-    results = cursor.fetchall()
-    results = [[change_type(j) for j in i] for i in results]
+    results = []
+    while True:
+         try:
+              results.append([change_type(f) for f in cursor.fetchone()])
+         except TypeError:
+              break
     return spark.createDataFrame(results, columns)
 
 def main():
