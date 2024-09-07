@@ -31,16 +31,16 @@ cursor = cnx.cursor()
 # this function is used to change those types to acceptable types
 def change_type(x):
      if isinstance(x, set):
-          return str(x)
+          return list(x)
      if x is None:
           return ''
-     return x         
+     return x    
 
 # Function for converting a table to a dataframe
 def table_to_df(table_name:str):
     cursor.execute(f"DESCRIBE {table_name};")
     descriptor = cursor.fetchall()
-    columns = [r[0] for r in descriptor]
+    columns = [column[0] for column in descriptor]
     cursor.execute(f"SELECT * FROM {table_name};")
     results = []
     while True:
