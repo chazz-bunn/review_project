@@ -40,7 +40,7 @@ def change_type(x):
 def table_to_df(table_name:str):
     cursor.execute(f"DESCRIBE {table_name};")
     descriptors = cursor.fetchall()
-    columns = [column[0] for column in descriptors]
+    columns = [descriptor[0] for descriptor in descriptors]
     cursor.execute(f"SELECT * FROM {table_name};")
     results = []
     while True:
