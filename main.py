@@ -39,8 +39,8 @@ def change_type(x):
 # Function for converting a table to a dataframe
 def table_to_df(table_name:str):
     cursor.execute(f"DESCRIBE {table_name};")
-    descriptor = cursor.fetchall()
-    columns = [column[0] for column in descriptor]
+    descriptors = cursor.fetchall()
+    columns = [column[0] for column in descriptors]
     cursor.execute(f"SELECT * FROM {table_name};")
     results = []
     while True:
